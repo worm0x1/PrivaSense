@@ -1,6 +1,6 @@
 # PrivaSense
 
-**A lightweight, modular JavaScript library for detecting incognito mode, user activity, and device storage.**
+A lightweight, **open-source** JavaScript library for detecting **incognito** mode, **physical user activity** (such as walking, sitting, or standing), and **device storage.**
 
 ---
 
@@ -95,6 +95,8 @@ const storage = await ps.getStorage();
 // Returns: '32 GB / 128 GB' or 'Unknown'
 ```
 
+---
+
 ## 💡 Examples
 
 ### Example 1: Only Incognito Detection
@@ -109,6 +111,8 @@ if (info.incognito === '❌') {
     alert('Please disable incognito mode for full functionality');
 }
 ```
+
+---
 
 ### Example 2: Only Activity Detection
 
@@ -128,6 +132,8 @@ Great for fitness or health apps.
 </script>
 ```
 
+---
+
 ### Example 3: Only Storage Detection
 
 Useful for storage management apps.
@@ -138,6 +144,7 @@ const info = await ps.getInfo();
 
 console.log('Available storage:', info.storage);
 ```
+---
 
 ### Example 4: Incognito + Storage
 
@@ -151,6 +158,8 @@ const info = await ps.getInfo();
 console.log(info);
 // { incognito: '✅', storage: '32 GB / 128 GB' }
 ```
+
+---
 
 ### Example 5: All Features - Complete Dashboard
 
@@ -220,6 +229,8 @@ console.log(info);
 </html>
 ```
 
+---
+
 ## 🎨 Configuration Examples
 
 ```javascript
@@ -248,6 +259,8 @@ const ps8 = new PrivaSense({
 });
 ```
 
+---
+
 ## 🔥 Use Cases
 
 | Use Case | Configuration | Best For |
@@ -258,6 +271,8 @@ const ps8 = new PrivaSense({
 | Security Dashboard | `{ incognito: true, storage: true }` | Admin panels, Security tools |
 | Complete Monitoring | All three enabled | Device info dashboards |
 
+---
+
 ## ⚡ Performance
 
 PrivaSense only loads what you enable:
@@ -267,6 +282,8 @@ PrivaSense only loads what you enable:
 | Single feature | < 5ms | Minimal |
 | Two features | < 10ms | Low |
 | All features | < 15ms | Low |
+
+---
 
 ## 🌐 Browser Compatibility
 
@@ -281,9 +298,11 @@ PrivaSense only loads what you enable:
 
 **Note:** Activity detection requires device motion sensors (available on most mobile devices and some laptops).
 
+---
+
 ## 📱 iOS Permissions
 
-For activity detection on iOS 13+, you need to request permission:
+* For activity detection on iOS 13+, you need to request permission:
 
 ```javascript
 if (typeof DeviceMotionEvent.requestPermission === 'function') {
@@ -298,9 +317,11 @@ if (typeof DeviceMotionEvent.requestPermission === 'function') {
 }
 ```
 
+---
+
 ## 🛡️ Error Handling
 
-If you try to call a method for a disabled feature:
+* If you try to call a method for a disabled feature:
 
 ```javascript
 const ps = new PrivaSense({ incognito: true }); // Only incognito enabled
@@ -312,6 +333,8 @@ try {
     // "Activity detection is not enabled. Initialize with { activity: true }"
 }
 ```
+
+---
 
 ## 📊 Return Values
 
@@ -329,15 +352,6 @@ try {
 - `"32 GB / 128 GB"` - (Used / Total)
 - `"128 GB"` - (Only total if used is 0)
 - `"Unknown"` - If API unavailable
-
----
-
-## ⚙️ static web protection
-
-This project is also built with the same **Js obfuscation library**
-
-> [▶️ Test Site](https://web0x1.vercel.app/)
-
 
 ---
 
