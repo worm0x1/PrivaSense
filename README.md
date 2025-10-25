@@ -4,12 +4,6 @@
 
 ---
 
-## 🎯 Why PrivaSense?
-
-**Priva**cy Detection (Incognito) + **Sense**ing (Activity & Storage) = **PrivaSense**
-
-PrivaSense gives you the flexibility to enable **only the features you need** - whether it's one, two, or all three. No bloat, no unnecessary code running.
-
 ## ✨ Features
 
 - 🕵️ **Incognito Mode Detection** - Works across Chrome, Brave, Firefox, Safari, Edge, and Opera
@@ -19,6 +13,8 @@ PrivaSense gives you the flexibility to enable **only the features you need** - 
 - ⚡ **Lightweight** - Only ~8KB minified
 - 🔧 **Zero Dependencies** - No external libraries required
 - 📱 **Mobile Friendly** - Full support for iOS and Android devices
+
+---
 
 ## 📦 Installation
 
@@ -48,9 +44,11 @@ console.log(info);
 // Output: { incognito: '✅', storage: '32 GB / 128 GB' }
 ```
 
+---
+
 ## 📖 Documentation
 
-### Constructor Options
+*Constructor Options
 
 ```javascript
 new PrivaSense({
@@ -61,10 +59,11 @@ new PrivaSense({
     walkingThreshold: number  // Walking detection threshold (default: 2.0)
 })
 ```
+---
 
 ### Main Methods
 
-#### `getInfo()`
+*`getInfo()`
 Returns all enabled features' information.
 
 ```javascript
@@ -72,7 +71,7 @@ const info = await ps.getInfo();
 // Returns object with only enabled features
 ```
 
-#### `detectIncognito()`
+*`detectIncognito()`
 Detects incognito/private mode. *Requires: `incognito: true`*
 
 ```javascript
@@ -80,7 +79,7 @@ const result = await ps.detectIncognito();
 // Returns: '✅' (Normal) or '❌' (Incognito)
 ```
 
-#### `getActivity()`
+*`getActivity()`
 Gets current user activity. *Requires: `activity: true`*
 
 ```javascript
@@ -88,7 +87,7 @@ const activity = await ps.getActivity();
 // Returns: 'Standing or Sitting' | 'Walking or riding' | 'Lying down'
 ```
 
-#### `getStorage()`
+*`getStorage()`
 Gets device storage info. *Requires: `storage: true`*
 
 ```javascript
