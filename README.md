@@ -49,12 +49,13 @@ console.log(info);
 ## 📖 Documentation
 
 * Constructor Options
-
 ```javascript
 new PrivaSense({
     incognito: boolean,       // Enable incognito detection (default: true)
     activity: boolean,        // Enable activity detection (default: true)
     storage: boolean,         // Enable storage detection (default: true)
+    normalLabel: string,      // Custom label for normal mode (default: '✅')
+    incognitoLabel: string,   // Custom label for incognito mode (default: '❌')
     historyLength: number,    // Motion history buffer (default: 100)
     walkingThreshold: number  // Walking detection threshold (default: 2.0)
 })
@@ -231,6 +232,37 @@ console.log(info);
 
 ---
 
+---
+
+### Example 6: Custom Incognito Labels
+```javascript
+// With custom text labels
+const ps = new PrivaSense({ 
+    incognito: true,
+    normalLabel: 'Normal Mode',
+    incognitoLabel: 'Incognito Mode'
+});
+
+const info = await ps.getInfo();
+console.log(info.incognito); // Output: 'Normal Mode' or 'Incognito Mode'
+
+// With custom emojis
+const ps2 = new PrivaSense({ 
+    incognito: true,
+    normalLabel: '🟢 Public',
+    incognitoLabel: '🔴 Private'
+});
+
+// Mix text and emoji
+const ps3 = new PrivaSense({ 
+    incognito: true,
+    normalLabel: '✅ Normal Browsing',
+    incognitoLabel: '❌ Private Browsing'
+});
+```
+
+---
+
 ## 🎨 Configuration Examples
 
 ```javascript
@@ -339,8 +371,8 @@ try {
 ## 📊 Return Values
 
 ### Incognito Detection
-- `'✅'` - Normal browsing mode
-- `'❌'` - Incognito/Private mode
+- Default: `'✅'` (Normal) / `'❌'` (Incognito)
+- Custom: আপনার দেওয়া `normalLabel` এবং `incognitoLabel` রিটার্ন করবে
 
 ### Activity Detection
 - `"Standing or Sitting"`
