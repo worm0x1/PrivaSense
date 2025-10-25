@@ -274,6 +274,7 @@ PrivaSense only loads what you enable:
 | Browser | Incognito Detection | Activity Detection | Storage Detection |
 |---------|-------------------|-------------------|-------------------|
 | Chrome | ✅ | ✅ | ✅ |
+| Brave | ✅ | ✅ | ✅ |
 | Firefox | ✅ | ✅ | ✅ |
 | Safari | ✅ | ✅ | ✅ |
 | Edge | ✅ | ✅ | ✅ |
