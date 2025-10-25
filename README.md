@@ -48,7 +48,7 @@ console.log(info);
 
 ## 📖 Documentation
 
-*Constructor Options
+* Constructor Options
 
 ```javascript
 new PrivaSense({
@@ -63,7 +63,7 @@ new PrivaSense({
 
 ### Main Methods
 
-*`getInfo()`
+* `getInfo()`
 Returns all enabled features' information.
 
 ```javascript
@@ -71,7 +71,7 @@ const info = await ps.getInfo();
 // Returns object with only enabled features
 ```
 
-*`detectIncognito()`
+* `detectIncognito()`
 Detects incognito/private mode. *Requires: `incognito: true`*
 
 ```javascript
@@ -79,7 +79,7 @@ const result = await ps.detectIncognito();
 // Returns: '✅' (Normal) or '❌' (Incognito)
 ```
 
-*`getActivity()`
+* `getActivity()`
 Gets current user activity. *Requires: `activity: true`*
 
 ```javascript
@@ -87,7 +87,7 @@ const activity = await ps.getActivity();
 // Returns: 'Standing or Sitting' | 'Walking or riding' | 'Lying down'
 ```
 
-*`getStorage()`
+* `getStorage()`
 Gets device storage info. *Requires: `storage: true`*
 
 ```javascript
