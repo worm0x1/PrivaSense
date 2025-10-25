@@ -158,6 +158,8 @@ console.log(info);
 ```html
 <!DOCTYPE html>
 <html>
+<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
     <title>PrivaSense Demo</title>
     <style>
