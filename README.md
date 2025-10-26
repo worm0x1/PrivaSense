@@ -41,21 +41,21 @@ const ps = new PrivaSense({
 // Get all enabled information
 const info = await ps.getInfo();
 console.log(info);
-// Output: { incognito: '✅', storage: '32 GB / 128 GB' }
+// Output: { incognito: '🟢 Public', storage: '32 GB / 128 GB' }
 ```
 
 ---
 
 ## 📖 Documentation
 
-* Constructor Options
+### Constructor Options
 ```javascript
 new PrivaSense({
     incognito: boolean,       // Enable incognito detection (default: true)
     activity: boolean,        // Enable activity detection (default: true)
     storage: boolean,         // Enable storage detection (default: true)
-    normalLabel: string,      // Custom label for normal mode (default: '✅')
-    incognitoLabel: string,   // Custom label for incognito mode (default: '❌')
+    normalLabel: string,      // Custom label for normal mode (default: '🟢 Public')
+    incognitoLabel: string,   // Custom label for incognito mode (default: '🔴 Private')
     historyLength: number,    // Motion history buffer (default: 100)
     walkingThreshold: number  // Walking detection threshold (default: 2.0)
 })
@@ -64,7 +64,7 @@ new PrivaSense({
 
 ### Main Methods
 
-* `getInfo()`
+#### `getInfo()`
 Returns all enabled features' information.
 
 ```javascript
@@ -72,23 +72,23 @@ const info = await ps.getInfo();
 // Returns object with only enabled features
 ```
 
-* `detectIncognito()`
+#### `detectIncognito()`
 Detects incognito/private mode. *Requires: `incognito: true`*
 
 ```javascript
 const result = await ps.detectIncognito();
-// Returns: '✅' (Normal) or '❌' (Incognito)
+// Returns: '🟢 Public' (Normal) or '🔴 Private' (Incognito)
 ```
 
-* `getActivity()`
+#### `getActivity()`
 Gets current user activity. *Requires: `activity: true`*
 
 ```javascript
 const activity = await ps.getActivity();
-// Returns: 'Standing or Sitting' | 'Walking or riding' | 'Lying down'
+// Returns: 'Standing or Sitting' | 'Walking or riding' | 'Lying down' | 'Unknown'
 ```
 
-* `getStorage()`
+#### `getStorage()`
 Gets device storage info. *Requires: `storage: true`*
 
 ```javascript
@@ -105,10 +105,10 @@ const storage = await ps.getStorage();
 Perfect for privacy-focused websites.
 
 ```javascript
-const ps = new PrivaSense({ incognito: true });
+const ps = new PrivaSense({ incognito: true, activity: false, storage: false });
 const info = await ps.getInfo();
 
-if (info.incognito === '❌') {
+if (info.incognito === '🔴 Private') {
     alert('Please disable incognito mode for full functionality');
 }
 ```
@@ -124,7 +124,7 @@ Great for fitness or health apps.
 
 <script src="https://cdn.jsdelivr.net/gh/worm0x1/PrivaSense/PrivaSense.js"></script>
 <script>
-    const ps = new PrivaSense({ activity: true });
+    const ps = new PrivaSense({ incognito: false, activity: true, storage: false });
     
     setInterval(async () => {
         const info = await ps.getInfo();
@@ -140,7 +140,7 @@ Great for fitness or health apps.
 Useful for storage management apps.
 
 ```javascript
-const ps = new PrivaSense({ storage: true });
+const ps = new PrivaSense({ incognito: false, activity: false, storage: true });
 const info = await ps.getInfo();
 
 console.log('Available storage:', info.storage);
@@ -151,13 +151,14 @@ console.log('Available storage:', info.storage);
 
 ```javascript
 const ps = new PrivaSense({ 
-    incognito: true, 
+    incognito: true,
+    activity: false, 
     storage: true 
 });
 
 const info = await ps.getInfo();
 console.log(info);
-// { incognito: '✅', storage: '32 GB / 128 GB' }
+// { incognito: '🟢 Public', storage: '32 GB / 128 GB' }
 ```
 
 ---
@@ -167,9 +168,9 @@ console.log(info);
 ```html
 <!DOCTYPE html>
 <html>
-<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PrivaSense Demo</title>
     <style>
         .info-card {
@@ -216,9 +217,7 @@ console.log(info);
         async function updateInfo() {
             const info = await ps.getInfo();
             
-            document.getElementById('incognito').textContent = 
-                info.incognito === '✅' ? 'Normal Mode ✅' : 'Incognito Mode ❌';
-            
+            document.getElementById('incognito').textContent = info.incognito;
             document.getElementById('activity').textContent = info.activity;
             document.getElementById('storage').textContent = info.storage;
         }
@@ -232,25 +231,23 @@ console.log(info);
 
 ---
 
----
-
 ### Example 6: Custom Incognito Labels
 ```javascript
-// With custom text labels
+// With custom emoji labels (like the old default)
 const ps = new PrivaSense({ 
     incognito: true,
-    normalLabel: 'Normal Mode',
-    incognitoLabel: 'Incognito Mode'
+    normalLabel: '✅',
+    incognitoLabel: '❌'
 });
 
 const info = await ps.getInfo();
-console.log(info.incognito); // Output: 'Normal Mode' or 'Incognito Mode'
+console.log(info.incognito); // Output: '✅' or '❌'
 
-// With custom emojis
+// With custom text labels
 const ps2 = new PrivaSense({ 
     incognito: true,
-    normalLabel: '🟢 Public',
-    incognitoLabel: '🔴 Private'
+    normalLabel: 'Normal Mode',
+    incognitoLabel: 'Incognito Mode'
 });
 
 // Mix text and emoji
@@ -267,25 +264,29 @@ const ps3 = new PrivaSense({
 
 ```javascript
 // 1️⃣ Single Feature
-const ps1 = new PrivaSense({ incognito: true });
-const ps2 = new PrivaSense({ activity: true });
-const ps3 = new PrivaSense({ storage: true });
+const ps1 = new PrivaSense({ incognito: true, activity: false, storage: false });
+const ps2 = new PrivaSense({ incognito: false, activity: true, storage: false });
+const ps3 = new PrivaSense({ incognito: false, activity: false, storage: true });
 
 // 2️⃣ Two Features
-const ps4 = new PrivaSense({ incognito: true, storage: true });
-const ps5 = new PrivaSense({ activity: true, storage: true });
-const ps6 = new PrivaSense({ incognito: true, activity: true });
+const ps4 = new PrivaSense({ incognito: true, activity: false, storage: true });
+const ps5 = new PrivaSense({ incognito: false, activity: true, storage: true });
+const ps6 = new PrivaSense({ incognito: true, activity: true, storage: false });
 
-// 3️⃣ All Features
+// 3️⃣ All Features (Default)
 const ps7 = new PrivaSense({ 
     incognito: true, 
     activity: true, 
     storage: true 
 });
+// Or simply:
+const ps8 = new PrivaSense();
 
 // 4️⃣ Custom Configuration
-const ps8 = new PrivaSense({ 
+const ps9 = new PrivaSense({ 
+    incognito: false,
     activity: true,
+    storage: false,
     historyLength: 150,      // Longer motion history
     walkingThreshold: 2.5    // More sensitive walking detection
 });
@@ -297,10 +298,10 @@ const ps8 = new PrivaSense({
 
 | Use Case | Configuration | Best For |
 |----------|--------------|----------|
-| Privacy Check | `{ incognito: true }` | Banking, E-commerce sites |
-| Fitness Tracking | `{ activity: true }` | Health apps, Step counters |
-| Storage Manager | `{ storage: true }` | File managers, Cloud storage apps |
-| Security Dashboard | `{ incognito: true, storage: true }` | Admin panels, Security tools |
+| Privacy Check | `{ incognito: true, activity: false, storage: false }` | Banking, E-commerce sites |
+| Fitness Tracking | `{ incognito: false, activity: true, storage: false }` | Health apps, Step counters |
+| Storage Manager | `{ incognito: false, activity: false, storage: true }` | File managers, Cloud storage apps |
+| Security Dashboard | `{ incognito: true, activity: false, storage: true }` | Admin panels, Security tools |
 | Complete Monitoring | All three enabled | Device info dashboards |
 
 ---
@@ -334,7 +335,7 @@ PrivaSense only loads what you enable:
 
 ## 📱 iOS Permissions
 
-* For activity detection on iOS 13+, you need to request permission:
+For activity detection on iOS 13+, you need to request permission:
 
 ```javascript
 if (typeof DeviceMotionEvent.requestPermission === 'function') {
@@ -353,10 +354,10 @@ if (typeof DeviceMotionEvent.requestPermission === 'function') {
 
 ## 🛡️ Error Handling
 
-* If you try to call a method for a disabled feature:
+If you try to call a method for a disabled feature:
 
 ```javascript
-const ps = new PrivaSense({ incognito: true }); // Only incognito enabled
+const ps = new PrivaSense({ incognito: true, activity: false, storage: false }); 
 
 try {
     await ps.getActivity(); // This will throw an error
@@ -371,14 +372,15 @@ try {
 ## 📊 Return Values
 
 ### Incognito Detection
-- Default: `'✅'` (Normal) / `'❌'` (Incognito)
+- Default: `'🟢 Public'` (Normal) / `'🔴 Private'` (Incognito)
 - Custom: আপনার দেওয়া `normalLabel` এবং `incognitoLabel` রিটার্ন করবে
 
 ### Activity Detection
 - `"Standing or Sitting"`
 - `"Walking or riding"`
 - `"Lying down"`
-- `"Sensor not supported"`
+- `"Unknown"` - When motion tracking hasn't initialized yet
+- `"Sensor not supported"` - When device doesn't support motion sensors
 
 ### Storage Detection
 - `"32 GB / 128 GB"` - (Used / Total)
